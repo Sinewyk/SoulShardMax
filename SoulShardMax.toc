@@ -1,0 +1,8 @@
+## Interface: 30400
+## Title: SoulShardMax
+## Notes: Delete soul shards past maximum
+## Author: Sinewyk
+## Version: 1.0
+## SavedVariablesPerCharacter: SoulShardMax_max
+
+SoulShardMax.lua
