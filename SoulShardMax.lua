@@ -42,7 +42,7 @@ end
 function SSM_DeleteExcessShards()
 	if SoulShardMax_max == 0 then return 0 end
 
-	local insertLeftToRight = GetInsertItemsLeftToRight()
+	local insertLeftToRight = C_Container.GetInsertItemsLeftToRight()
 
 	local bags = {}
 
@@ -50,10 +50,10 @@ function SSM_DeleteExcessShards()
 
 	-- Where is the soul bag if there are some ?
 	tinsert(bags, {bagIndex=0, isSoulBag=false}) -- backpack
-	tinsert(bags, {bagIndex=1, isSoulBag=select(2, GetContainerNumFreeSlots(1)) == SoulBagType})
-	tinsert(bags, {bagIndex=2, isSoulBag=select(2, GetContainerNumFreeSlots(2)) == SoulBagType})
-	tinsert(bags, {bagIndex=3, isSoulBag=select(2, GetContainerNumFreeSlots(3)) == SoulBagType})
-	tinsert(bags, {bagIndex=4, isSoulBag=select(2, GetContainerNumFreeSlots(4)) == SoulBagType})
+	tinsert(bags, {bagIndex=1, isSoulBag=select(2, C_Container.GetContainerNumFreeSlots(1)) == SoulBagType})
+	tinsert(bags, {bagIndex=2, isSoulBag=select(2, C_Container.GetContainerNumFreeSlots(2)) == SoulBagType})
+	tinsert(bags, {bagIndex=3, isSoulBag=select(2, C_Container.GetContainerNumFreeSlots(3)) == SoulBagType})
+	tinsert(bags, {bagIndex=4, isSoulBag=select(2, C_Container.GetContainerNumFreeSlots(4)) == SoulBagType})
 
 	-- soul bags first, but always take into account insertLeftToRight
 	table.sort(bags, function(a,b)
@@ -79,10 +79,10 @@ function SSM_DeleteExcessShardsOneBag(bagId, previousShards)
 	local numShardsInThisBag = 0
 
 	-- count from start of bag to the end, so it will start to delete latest items
-	for slot=1,GetContainerNumSlots(bagId),1 do
-		if GetContainerItemID(bagId, slot) == SoulShardItemID then
+	for slot=1,C_Container.GetContainerNumSlots(bagId),1 do
+		if C_Container.GetContainerItemID(bagId, slot) == SoulShardItemID then
 			if numShardsInThisBag + previousShards >= SoulShardMax_max then
-				PickupContainerItem(bagId, slot)
+				C_Container.PickupContainerItem(bagId, slot)
 				_, cursorItemID = GetCursorInfo()
 				if cursorItemID == SoulShardItemID then
 					DeleteCursorItem()
